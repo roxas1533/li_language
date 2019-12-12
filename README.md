@@ -8,6 +8,6 @@
 | , | il | Input a character and store it in the cell at the pointer |
 | . | li | Output the character signified by the cell at the pointer |
 | \[ | \|l | label |
-| ] | l\| | Jump past the matching li if the cell under the pointer is 0 |
+| ] | l\| | Jump past the matching \|l if the cell under the pointer is 0 |
 
 Brainfuck's '\[ ]' means "while" but li's '\|l l\|' means "do-while" 
