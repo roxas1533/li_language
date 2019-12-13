@@ -10,4 +10,4 @@
 | \[ | \|l | label |
 | ] | l\| | Jump past the matching \|l if the cell under the pointer is 0 |
 
-Brainfuck's '\[ ]' means "while" but li's '\|l l\|' means "do-while" 
+You cannot nest "|l" "l|" 
