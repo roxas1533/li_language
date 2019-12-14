@@ -27,20 +27,14 @@ public:
 	}
 };
 
-class incP :public Node {
+class input :public Node {
 public:
 	int point;
-	incP(int i) :point(i) {}
+	input(int p) :point(p) {}
 	void print(ofstream& o) {
-		//o << "\tmov	DWORD PTR [esp+" << 8 + 4 * point << "], 0\n";
-	};
-};
-
-class decP :public Node {
-public:
-	decP() {}
-	void print(ofstream& o) {
-	};
+		o << "	call	_getchar\n";
+		o << "mov	DWORD PTR[esp +"<< 8 + 4 * point <<"], eax\n";
+	}
 };
 
 class incV :public Node {
@@ -111,10 +105,8 @@ void CheckToken(string h) {
 			maxBuf++;
 			//buf.push_back(0);
 		}
-		no.push_back(shared_ptr<incP>(new incP(bufPoint)));
 		break;
 	case 1:
-		no.push_back(shared_ptr<decP>(new decP()));
 		bufPoint--;
 		bufPoint < 0 ? exit(1) : void();
 		break;
@@ -127,7 +119,8 @@ void CheckToken(string h) {
 		//buf[bufPoint]--;
 		break;
 	case 4:
-		buf[bufPoint] = getchar();
+		//buf[bufPoint] = getchar();
+		no.push_back(shared_ptr<input>(new input(bufPoint)));
 		break;
 	case 5:
 		no.push_back(shared_ptr<priP>(new priP(printCount, bufPoint)));
@@ -184,7 +177,7 @@ int main(int argc, char* argv[]) {
 		token += 2;
 	}
 	string name = argv[1];
-	string out = name.substr(0,name.size()-4)+string(".s");
+	string out = name.substr(0, name.size() - 4) + string(".s");
 	ofstream o(out);
 	o << ".intel_syntax noprefix\n";
 	for (auto& e : printnodes) {
